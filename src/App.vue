@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav>
+    <nav class="menu-list">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
@@ -9,24 +9,44 @@
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+/* Font import */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+body{
+  margin: 0px;
+  font-family: 'Open Sans', sans-serif;
+  min-height: 100vh;
+}
+h2 {
+  color: white;
+  font-size: 24px;
+}
+h3 {
+  color: #FFE81F;
+  font-size: 14px;
+}
+ul {
+    list-style: none;
+    margin: 0px;
+}
+li {
+    margin: 10px 0px;
+    font-size: 16px;
 }
 
-nav {
-  padding: 30px;
+.menu-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 20px;
+  background-color: #FFE81F;
+  padding: 20px;
+  margin: 0px;
+  box-shadow: inset 0 0 10px #000000;
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+@media only screen and (max-width: 1200px) {
+  .menu-list {
+      justify-content: center;
+      width: 100%;
+  }
 }
 </style>
