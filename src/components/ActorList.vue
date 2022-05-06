@@ -3,10 +3,10 @@
         <div class="dark-side">
             <h1>Welcome To The Star Wars DataBase</h1>
             <p>This project is about the Star Wars API. The project is based on API practice and Front-End work in Vue.js.</p>
-            <h2>See here all the Star Wars actors</h2>
+            <h2>You have chosen for</h2>
         <div class="cards">
           <ul>
-            <li v-for="detail in moreactordetails" :key="detail"><h3>{{detail.name}}</h3><h3>{{detail.gender}}</h3><h3>{{detail.birth}}</h3><h3>{{detail.haircolor}}</h3></li>
+            <li v-for="detail in moreactordetails" :key="detail"><h3>Name: {{detail.name}}</h3><h3>Gender: {{detail.gender}}</h3><h3>Height: {{detail.height}}</h3><h3>Birth Year: {{detail.birth}}</h3><h3>Hair Color: {{detail.hair}}</h3></li>
           </ul>
         </div>
         </div>
@@ -22,25 +22,32 @@
         data() {
             return {
                 moreactordetails: [],
-                id: this.$route.params.id
+                id: this.$route.params.id, /*https://router.vuejs.org/guide/essentials/dynamic-matching.html#reacting-to-params-changes*/
+                actorname: "Harry"
             }
         },
         methods: {
             async getStarWarsActorDetails() {
-                    let response = await fetch(`https://swapi.dev/api/people/this.id/`);
+                    let response = await fetch(`https://swapi.dev/api/people/` + this.id);
                     let data = await response.json();
                     //console.log(data);
                     let listActorDetails = {
                     name: data.name,
                     gender: data.gender,
+                    height: data.height,
                     birth: data.birth_year,
-                    haircolor: hair_color
+                    hair: data.hair_color
                     }
                     this.moreactordetails.push(listActorDetails);
             }
         },
         async created() {
           await this.getStarWarsActorDetails(); //call get actors details function
+        },
+        computed: {
+          slicedDetailList() {
+            return this.moreactordetails.slice(0, 1);
+          }
         }
     }
 </script>
@@ -49,6 +56,7 @@
     .dark-side h1 {
   -webkit-text-stroke: 1px #FFE81F;
 }
+
 main {
   display: flex;
   flex-wrap: wrap;
@@ -94,14 +102,7 @@ main > * {
 .cards > * {
   flex: 1;
 }
-.card-item {
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.199);
-  padding: 40px 80px;
-}
-.card-item:hover {
-    box-shadow: 0 4px 8px 0 #FFE81F;
-}
+
 button {
   background-color: white;
   border: none;

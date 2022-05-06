@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import SeeActorDetials from '../views/ActorView.vue'
+import ActorView from '../views/ActorView.vue'
 
 Vue.use(VueRouter)
 

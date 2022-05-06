@@ -6,7 +6,7 @@
             <h2>See here all the Star Wars actors</h2>
         <div class="cards">
           <ul>
-            <li v-for="actor in actorname" :key="actor"><h3>{{actor.name}}</h3><button v-on:click="getStarWarsActorDetails()">Log details</button></li>
+            <li v-for="actor in actorname" :key="actor"><h3>{{actor.name}}</h3><button><router-link v-bind:to="/actors/ + actor.url">See Details</router-link></button></li>
           </ul>
         </div>
         </div>
@@ -25,30 +25,25 @@
             actorname: [],
             characterid: [],
             moreactordetails: [],
-            spliturl: []
             }
         },
         methods: {
           async  getStarWarsActor() {
-            for(this.id = 1; this.id < 11; this.id++) { //begin loop
+            for(this.id = 1; this.id < 10; this.id++) { //begin loop
               let response = await fetch(`https://swapi.dev/api/people/${this.id}`);
               let data = await response.json();
               //console.log(data);
-              let hyperlink = data.url;
-              let newHyperlink = await hyperlink.split("/");
-              let linkId = await newHyperlink.at(-2);
               let listDetails = {
                 name: data.name,
+                url: data.url.split("/").at(-2)
               }
-              this.characterid.push(this.id);
-              this.spliturl.push(linkId);
               this.actorname.push(listDetails);
             } //end loop
           },
         },
         async created() {
           await this.getStarWarsActor(); //call get actors details function
-        }
+        },
     }
 </script>
 
@@ -56,6 +51,12 @@
 .dark-side h1 {
   -webkit-text-stroke: 1px #FFE81F;
 }
+
+ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
 main {
   display: flex;
   flex-wrap: wrap;
@@ -106,9 +107,7 @@ main > * {
   box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.199);
   padding: 40px 80px;
 }
-.card-item:hover {
-    box-shadow: 0 4px 8px 0 #FFE81F;
-}
+
 button {
   background-color: white;
   border: none;
@@ -119,6 +118,7 @@ button {
   font-weight: 400;
   cursor: pointer;
 }
+
 @media only screen and (max-width: 1180px) {
   main {
       flex-direction: column;

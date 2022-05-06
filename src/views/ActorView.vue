@@ -1,14 +1,14 @@
 <template>
-  <actor-details></actor-details>
+  <actor-list></actor-list>
 </template>
 
 <script>
-import ActorDetails from '@/components/ActorDetails.vue';
+import ActorList from '@/components/ActorList.vue';
 
 export default {
   name: 'ActorView',
   components: {
-    ActorDetails
+    ActorList
   }
 }
 </script>

@@ -1,12 +1,24 @@
 <template>
   <div id="app">
     <nav class="menu-list">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Home</router-link>
+      <router-link to="/">About this project</router-link>
+      <router-link to="/">Contact us</router-link>
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+  import MainArea from './components/MainArea.vue';
+  export default {
+      name: 'App',
+      components: {
+      
+      }
+  }
+</script>
+
 
 <style>
 /* Font import */
@@ -31,6 +43,11 @@ ul {
 li {
     margin: 10px 0px;
     font-size: 16px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
 }
 
 .menu-list {
