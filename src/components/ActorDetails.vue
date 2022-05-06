@@ -6,7 +6,7 @@
             <h2>See here all the Star Wars actors</h2>
         <div class="cards">
           <ul>
-            <li v-for="actor in actorname" :key="actor"><h3>{{actor.name}}</h3><button v-on:click="getStarWarsActorDetails()">Log details</button></li>
+            <li v-for="detail in moreactordetails" :key="detail"><h3>{{detail.name}}</h3><h3>{{detail.gender}}</h3><h3>{{detail.birth}}</h3><h3>{{detail.haircolor}}</h3></li>
           </ul>
         </div>
         </div>
@@ -14,46 +14,39 @@
             <!--<img src="https://www.wupply.nl/wp-content/uploads/2022/03/StarWars.png" class="banner" alt="Star Wars"/>-->
         </div>
     </main>
-    
 </template>
 
 <script>
     export default {
-        name: "MainArea",
+        name: "actorDetails",
         data() {
             return {
-            actorname: [],
-            characterid: [],
-            moreactordetails: [],
-            spliturl: []
+                moreactordetails: [],
+                id: this.$route.params.id
             }
         },
         methods: {
-          async  getStarWarsActor() {
-            for(this.id = 1; this.id < 11; this.id++) { //begin loop
-              let response = await fetch(`https://swapi.dev/api/people/${this.id}`);
-              let data = await response.json();
-              //console.log(data);
-              let hyperlink = data.url;
-              let newHyperlink = await hyperlink.split("/");
-              let linkId = await newHyperlink.at(-2);
-              let listDetails = {
-                name: data.name,
-              }
-              this.characterid.push(this.id);
-              this.spliturl.push(linkId);
-              this.actorname.push(listDetails);
-            } //end loop
-          },
+            async getStarWarsActorDetails() {
+                    let response = await fetch(`https://swapi.dev/api/people/this.id/`);
+                    let data = await response.json();
+                    //console.log(data);
+                    let listActorDetails = {
+                    name: data.name,
+                    gender: data.gender,
+                    birth: data.birth_year,
+                    haircolor: hair_color
+                    }
+                    this.moreactordetails.push(listActorDetails);
+            }
         },
         async created() {
-          await this.getStarWarsActor(); //call get actors details function
+          await this.getStarWarsActorDetails(); //call get actors details function
         }
     }
 </script>
 
 <style>
-.dark-side h1 {
+    .dark-side h1 {
   -webkit-text-stroke: 1px #FFE81F;
 }
 main {
