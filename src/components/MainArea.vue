@@ -20,11 +20,12 @@
 <script>
     export default {
         name: "MainArea",
+        components: {
+        },
         data() {
             return {
             actorname: [],
             characterid: [],
-            moreactordetails: [],
             }
         },
         methods: {
@@ -35,6 +36,7 @@
               //console.log(data);
               let listDetails = {
                 name: data.name,
+                films: data.films,
                 url: data.url.split("/").at(-2)
               }
               this.actorname.push(listDetails);

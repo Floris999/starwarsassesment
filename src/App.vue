@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import MainArea from './components/MainArea.vue';
+
   export default {
       name: 'App',
       components: {

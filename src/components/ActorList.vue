@@ -8,6 +8,10 @@
           <ul>
             <li v-for="detail in moreactordetails" :key="detail"><h3>Name: {{detail.name}}</h3><h3>Gender: {{detail.gender}}</h3><h3>Height: {{detail.height}}</h3><h3>Birth Year: {{detail.birth}}</h3><h3>Hair Color: {{detail.hair}}</h3></li>
           </ul>
+          <h2>See all films of chosen actor</h2>
+          <ul>
+            <li v-for="film in filmlist" :key="film"><h3>Title: {{film.title}}</h3></li>
+          </ul>
         </div>
         </div>
         <div class="right-side">
@@ -17,13 +21,18 @@
 </template>
 
 <script>
+    import ActorFilmsList from './ActorFilmsList.vue'
     export default {
-        name: "actorDetails",
+        name: "actorList",
+        components: {
+          ActorFilmsList
+        },
         data() {
             return {
                 moreactordetails: [],
                 id: this.$route.params.id, /*https://router.vuejs.org/guide/essentials/dynamic-matching.html#reacting-to-params-changes*/
-                actorname: "Harry"
+                filmId: [],
+                filmlist: []
             }
         },
         methods: {
@@ -31,24 +40,23 @@
                     let response = await fetch(`https://swapi.dev/api/people/` + this.id);
                     let data = await response.json();
                     //console.log(data);
+                    /*data.films.forEach((index) => {
+                      this.filmId = index.split("/").at(-2);
+                    })*/
                     let listActorDetails = {
                     name: data.name,
                     gender: data.gender,
                     height: data.height,
                     birth: data.birth_year,
-                    hair: data.hair_color
+                    hair: data.hair_color,
                     }
                     this.moreactordetails.push(listActorDetails);
-            }
+            },
         },
         async created() {
           await this.getStarWarsActorDetails(); //call get actors details function
+          await this.getStarWarsFilmDetails();
         },
-        computed: {
-          slicedDetailList() {
-            return this.moreactordetails.slice(0, 1);
-          }
-        }
     }
 </script>
 
