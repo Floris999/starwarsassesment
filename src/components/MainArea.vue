@@ -5,7 +5,7 @@
             <p>This project is about the Star Wars API. The project is based on API practice and Front-End work in Vue.js.</p>
             <h2>See here all the Star Wars actors</h2>
         <div class="cards">
-          <ul>
+          <ul class="blocks">
             <li v-for="actor in actorname" :key="actor"><h3>{{actor.name}}</h3><button><router-link v-bind:to="/actors/ + actor.url">See Details</router-link></button></li>
           </ul>
         </div>
@@ -54,7 +54,7 @@
   -webkit-text-stroke: 1px #FFE81F;
 }
 
-ul {
+.blocks {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }

@@ -7,10 +7,7 @@
         <div class="cards">
           <ul>
             <li v-for="detail in moreactordetails" :key="detail"><h3>Name: {{detail.name}}</h3><h3>Gender: {{detail.gender}}</h3><h3>Height: {{detail.height}}</h3><h3>Birth Year: {{detail.birth}}</h3><h3>Hair Color: {{detail.hair}}</h3></li>
-          </ul>
-          <h2>See all films of chosen actor</h2>
-          <ul>
-            <li v-for="film in filmlist" :key="film"><h3>Title: {{film.title}}</h3></li>
+            <li v-for="film in filmdetails" :key="film"><h3>Movie:</h3><p>{{film.title}}</p><h3>Release date:</h3><p>{{film.release}}</p><h3>Info:</h3><p>{{film.intro}}</p></li>
           </ul>
         </div>
         </div>
@@ -21,21 +18,18 @@
 </template>
 
 <script>
-    import ActorFilmsList from './ActorFilmsList.vue'
     export default {
         name: "actorList",
         components: {
-          ActorFilmsList
         },
         data() {
             return {
                 moreactordetails: [],
                 id: this.$route.params.id, /*https://router.vuejs.org/guide/essentials/dynamic-matching.html#reacting-to-params-changes*/
-                filmId: [],
-                filmlist: []
+                filmdetails: []
             }
         },
-        methods: {
+        methods: { //Get actor details
             async getStarWarsActorDetails() {
                     let response = await fetch(`https://swapi.dev/api/people/` + this.id);
                     let data = await response.json();
@@ -49,13 +43,28 @@
                     height: data.height,
                     birth: data.birth_year,
                     hair: data.hair_color,
+                    films: data.films
                     }
                     this.moreactordetails.push(listActorDetails);
             },
+            async getStarWarsFilmsDetails() { //Get film details of actor
+              await this.moreactordetails.map(async detail => {
+                detail.films.map(async url => {
+                  let response = await fetch(url);
+                  let data = await response.json();
+                  let filmlist = {
+                    title: data.title,
+                    intro: data.opening_crawl,
+                    release: data.release_date,
+                  }
+                  this.filmdetails.push(filmlist);
+                })
+              })
+            }
         },
         async created() {
           await this.getStarWarsActorDetails(); //call get actors details function
-          await this.getStarWarsFilmDetails();
+          await this.getStarWarsFilmsDetails();
         },
     }
 </script>
