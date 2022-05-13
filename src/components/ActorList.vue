@@ -33,10 +33,6 @@
             async getStarWarsActorDetails() {
                     let response = await fetch(`https://swapi.dev/api/people/` + this.id);
                     let data = await response.json();
-                    //console.log(data);
-                    /*data.films.forEach((index) => {
-                      this.filmId = index.split("/").at(-2);
-                    })*/
                     let listActorDetails = {
                     name: data.name,
                     gender: data.gender,
@@ -64,7 +60,7 @@
         },
         async created() {
           await this.getStarWarsActorDetails(); //call get actors details function
-          await this.getStarWarsFilmsDetails();
+          await this.getStarWarsFilmsDetails(); // call get film details of chosen actor function
         },
     }
 </script>
